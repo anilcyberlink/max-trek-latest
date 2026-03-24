@@ -1,0 +1,707 @@
+/* navbar */
+.uk-navbar {
+  padding: 0 20px;
+}
+
+.uk-navbar-nav {
+  gap: 10px;
+}
+.uk-navbar-container:not(.uk-navbar-transparent) {
+  background: none !important;
+}
+.uk-navbar-nav > li > a {
+  color: #565b5e;
+  font-family: "Poppins", sans-serif;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 15px;
+  transition: 0.5s ease;
+  padding: 0 10px;
+}
+.uk-navbar-dropdown {
+  border-bottom: 5px solid var(--primary);
+  border-radius: 6px;
+  padding: 15px 22px;
+}
+.uk-navbar-dropdown-nav li > a {
+  color: var(--primary) !important;
+  border-bottom: 1px solid #80808014;
+  padding: 9px 0 !important;
+  transition: 0.3s ease;
+}
+.uk-navbar-dropdown-nav li > a:hover{
+  color: var(--secondary) !important;
+}
+.uk-navbar-nav > li > a:hover {
+  background: #0a2f4433;
+  color: var(--primary);
+  border-bottom: 3px solid var(--primary);
+}
+.uk-dropbar.uk-open {
+  /*margin-top: 15px !important;*/
+  border-radius: 15px;
+  background: var(--light);
+}
+.uk-travel-tabs{
+    border: none !important;
+}
+.uk-travel-tabs li a{
+    background-color: var(--primary);
+    padding: 8px !important;
+    width: 150px;
+    color: white !important;
+    border-radius: 6px;
+    font-size: 12px!important;
+    margin-top: 15px;
+}
+.uk-travel-tabs::before{
+    border: none !important;
+}
+.uk-travel-tabs>.uk-active>a{
+  background-color: var(--secondary);
+}
+.uk-megamenu-sub-menu {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    color: white;
+    text-align: center;
+    border-radius: 15px;
+}
+.uk-megamenu-sub-menu img {
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:99;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+.uk-megamenu-sub-menu .overlay {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 15%, rgba(0, 0, 0, 0.65) 80%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:999;
+    border-radius: 15px;
+  }
+.overlay h4{
+    margin-bottom: 25px !important;
+    font-size: 17px;
+    font-weight: 500;
+}
+.uk-pagination > * > * {
+  color: #000000;
+  font-size: 20px;
+}
+.uk-offcanvas-nav {
+  list-style-image: url(../img/icon/right-arrow.png);
+}
+.uk-offcanvas-nav li {
+  border-bottom: 1px solid #0a2f4442;
+  padding: 8px;
+}
+.uk-offcanvas-nav li a {
+  color: var(--primary);
+  font-size: 18px;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+.uk-offcanvas-nav li a:hover {
+  color: var(--secondary);
+}
+
+.uk-pagination > .uk-active > * {
+  color: var(--secondary);
+}
+
+/********************************homepage ****************************/
+.uk-homepage-banner {
+  height: 100vh;
+}
+.uk-homepage-banner img {
+  position: absolute;
+  bottom: -2px;
+}
+
+.uk-homepage-banner-text {
+  position: absolute;
+  top: 18%;
+}
+
+@media (min-width: 760px) and (max-width: 1024px) {
+  .uk-homepage-banner {
+    height: 60vh !important;
+  }
+}
+@media  (max-width: 749px) {
+  .uk-homepage-banner img {
+    height: 40vh !important;
+    width:100%;
+    object-fit:cover;
+  }
+}
+
+.rotated-text {
+  writing-mode: vertical-rl;
+  /* vertical top to bottom */
+  transform: rotate(180deg);
+  /* flip text if needed */
+  text-align: center;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+.rotated-text h2 {
+  font-size: 27px;
+}
+
+.about-img {
+  border-bottom-right-radius: 100px;
+}
+
+.about-img-reverse {
+  border-bottom-left-radius: 100px;
+}
+
+.section-tag {
+  background-color: var(--secondary);
+  color: var(--white);
+  padding: 5px 9px;
+  font-weight: 500;
+}
+
+.border-pattern {
+  margin-top: -30px;
+}
+
+.border-pattern img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.uk-travel-card {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+@media (max-width: 960px) {
+  .uk-travel-card div .uk-media-220 {
+    height: 260px !important;
+  }
+}
+
+.uk-travel-text {
+  margin: 13px 0;
+  padding-bottom: 11px;
+  border-bottom: 1px dotted #bbbaba;
+}
+
+.uk-travel-text div a {
+  font-family: "DM Sans", sans-serif !important;
+  color: var(--text);
+  font-weight: 600 !important;
+  font-size: 17px;
+  line-height: 20px;
+  transition: 0.5s ease;
+}
+
+.uk-travel-text div a:hover {
+  color: var(--secondary);
+}
+
+.uk-travel-text div a h3:hover {
+  color: var(--secondary);
+  transition: 0.5s ease;
+}
+
+.uk-destination-overlay {
+  background-color: #00000075;
+}
+
+.arrow-prev,
+.arrow-next {
+  position: relative !important;
+  background: var(--primary);
+  color: white;
+  border-radius: 5px;
+  padding: 10px 16px;
+  border: 2px solid var(--primary);
+  transition: 0.3s ease-in;
+}
+
+.arrow-prev:hover,
+.arrow-next:hover {
+  background-color: var(--white);
+  color: var(--primary);
+}
+
+.uk-client-img {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  border: 1px solid var(--primary-light);
+  border-radius: 100%;
+  margin-top: -66px;
+  margin-left: 10px;
+}
+
+/* .message-container {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.message-container.expanded {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+} */
+.review-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* show only 5 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.review-text.expanded {
+  -webkit-line-clamp: unset;
+  max-height: none;
+}
+
+.read-more-btn {
+  font-family: "DM Sans", sans-serif !important;
+  border: none !important;
+  background: none !important;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+  transition: 0.3s ease-in;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.read-more-btn:hover {
+  color: var(--secondary) !important;
+}
+
+.uk-blue-contact {
+  position: relative;
+  z-index: 5;
+  margin-bottom: -60px !important;
+}
+
+@media (max-width: 639px) {
+  .uk-blue-contact {
+    margin-bottom: -35px !important;
+  }
+}
+
+/********************************list page ****************************/
+.uk-innerpage-banner {
+  background-color: var(--primary);
+  height: 60vh;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.line {
+  flex: 1;
+  border-bottom: 2px dashed #fff;
+  margin: 0 15px;
+}
+
+.icon {
+  color: #fff;
+  font-size: 18px;
+}
+
+.tree-image {
+  position: absolute;
+  bottom: 12px;
+  right: 0;
+  height: 270px;
+}
+
+.tree-image-up {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  height: 270px;
+}
+
+/********************************detail page ****************************/
+.uk-close {
+  background: var(--primary);
+  border-radius: 100%;
+  color: white;
+}
+
+.uk-banner-image {
+  height: 100vh;
+  width: 100%;
+  object-fit: cover;
+}
+
+.uk-banner-overlay {
+  background-color: #00000069;
+  height: 100vh;
+}
+
+.uk-small-details-nav {
+  overflow: auto !important;
+  white-space: nowrap !important;
+  padding: 0 40px;
+}
+
+.uk-navbar-single {
+  list-style: none;
+  padding: 0;
+}
+
+.uk-navbar-single li {
+  padding: 12px 9px;
+  border-bottom: 2px solid var(--primary);
+}
+
+.uk-navbar-single li:hover {
+  background: #42a3da36;
+  border-bottom: 2px solid var(--secondary);
+}
+
+.uk-navbar-single li a {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 997px) {
+  .detail-nav {
+    display: none;
+  }
+}
+
+.itinerary-wrapper {
+  position: relative;
+}
+
+/* Dotted line */
+.itinerary-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: -26px;
+  left: 37px;
+  width: 2px;
+  border-left: 2px dotted var(--secondary);
+  z-index: 0;
+}
+
+.itinerary-day {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  z-index: 1;
+}
+
+.day-circle {
+  background: #043c5b;
+  color: #fff;
+  font-weight: 600;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dotted #1e87f0;
+  flex-shrink: 0;
+}
+
+.itinerary-content {
+  flex: 1;
+  border-bottom: 1px solid white;
+  padding-bottom: 27px;
+}
+
+.itinerary-info {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 0.95rem;
+}
+
+.itinerary-wrapper:last-child::before {
+  height: 40%;
+}
+
+.itinerary-text p {
+  color: white;
+}
+.day-tag {
+  display: none;
+}
+@media (max-width: 641px) {
+  .day-circle {
+    display: none;
+  }
+  .itinerary-wrapper::before {
+    display: none;
+  }
+  .day-tag {
+    font-size: 13px;
+    display: inline;
+    background: var(--secondary);
+    padding: 5px 10px;
+    border-radius: 11px;
+    margin-right: 8px;
+  }
+  .uk-no-padding {
+    padding: 0 !important;
+  }
+}
+
+.uk-table th {
+  padding: 10px 12px;
+  color: var(--white);
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+.uk-table td {
+  padding: 9px 12px;
+}
+.uk-depature-thead {
+  background-color: var(--primary);
+}
+.uk-best-ul {
+  list-style-image: url(../img/icon/right-arrow.png);
+}
+
+.uk-include-ul {
+  list-style-image: url(../img/icon/check.png);
+}
+
+.uk-exclude-ul {
+  list-style-image: url(../img/icon/delete.png);
+}
+
+.uk-best-ul li,
+.uk-include-ul li,
+.uk-exclude-ul li {
+  margin-bottom: 5px;
+}
+
+.star-rating {
+  direction: rtl;
+  display: inline-block;
+  padding-top: 8px;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  font-size: 2em !important;
+  color: lightgray;
+  cursor: pointer;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+  color: var(--primary);
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: var(--primary);
+}
+.uk-feature-icon {
+  height: 43px;
+  width: 43px;
+  object-fit: contain;
+  margin-right: 7px;
+}
+
+.uk-trip-price {
+  background: linear-gradient(
+      180deg,
+      rgb(27 33 69) 0%,
+      rgba(26, 45, 62, 0.8) 100%
+    ),
+    url(../img/banner1.jpg);
+  color: #fff;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.uk-inquire-btn {
+  font-size: 15px;
+  text-decoration: underline;
+  transition: 0.3s ease;
+}
+
+.uk-inquire-btn:hover {
+  color: var(--secondary);
+}
+
+.uk-faq-li {
+  border-bottom: 1px solid #8080806b;
+  margin-top: 0 !important;
+}
+
+.uk-faq-title {
+  padding: 12px 0;
+  font-size: 26px;
+}
+
+.uk-faq-title:hover {
+  color: var(--secondary);
+}
+@media (max-width: 651px) {
+  .uk-faq-title {
+    font-size: 18px !important;
+  }
+}
+
+.uk-faq-content {
+  border-top: 1px solid #8080806b;
+  margin-top: 0px;
+  padding: 15px;
+  background: #b8dfff;
+}
+
+.uk-overlay-blue {
+  background-color: #0a2f44ad;
+}
+
+.uk-team-name h3:hover {
+  color: var(--secondary) !important;
+  transition: 0.3s ease;
+}
+
+.uk-team-icon a {
+  color: var(--white) !important;
+  background-color: var(--secondary) !important;
+  transition: 0.3 ease-in;
+}
+
+.uk-team-icon a:hover {
+  color: var(--primary) !important;
+}
+
+.uk-share-icon a {
+  color: var(--white) !important;
+  background-color: var(--primary) !important;
+  transition: 0.3 ease-in;
+}
+
+.uk-share-icon a:hover {
+  color: var(--secondary) !important;
+}
+
+.uk-related-ul {
+  list-style: none;
+  padding: 0;
+}
+
+.uk-related-ul li {
+  background: var(--primary);
+  padding: 11px 15px;
+  border-left: 6px solid var(--secondary);
+  color: white;
+  margin-bottom: 10px;
+  transition: 0.5s ease;
+}
+.uk-related-ul li a {
+  color: white;
+}
+.uk-related-ul li:hover {
+  background: var(--secondary);
+  border-left: 6px solid var(--primary);
+}
+.uk-custom-padding {
+  padding: 7px 15px;
+  border-left: 5px solid var(--secondary);
+}
+
+/********************************footer ****************************/
+.uk-dotnav > .uk-active > * {
+  background-color: rgb(255 255 255);
+}
+
+.partners-logo-list {
+  height: 70px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.partners-logo-list img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+  padding: 10px;
+}
+
+.uk-footer-icon a {
+  color: var(--white) !important;
+  background-color: rgb(255 255 255 / 29%) !important;
+  transition: 0.3 ease-in;
+}
+
+.uk-footer-icon a:hover {
+  color: var(--primary) !important;
+}
+
+.uk-footer-list {
+  list-style: none;
+  padding: 0;
+}
+
+.uk-footer-list li a {
+  color: var(--white);
+  font-size: 15px;
+  transition: 0.3s ease-in;
+}
+
+.uk-footer-list li {
+  margin-bottom: 5px;
+}
+
+.uk-footer-list li a:hover {
+  color: var(--secondary);
+}
+
+.uk-bottom-footer {
+  padding: 35px 10px;
+}
+
+.uk-footer-background-overlay {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  /* background-size: cover; */
+  background-image: url(../img/last.png);
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+}
