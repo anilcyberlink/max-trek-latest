@@ -11,7 +11,7 @@
     <div class=" uk-innerpage-banner uk-flex uk-flex-center uk-flex-middle">
         <div class="uk-text-center uk-margin-top">
             <span class="section-tag uk-text-uppercase uk-margin-small-top"><a href="{{url('/')}}" class="text-white">Home</a> / Trekking</span>
-            <h1 class="uk-text-uppercase text-white fw-600 uk-margin-small-top uk-margin-remove-bottom ls-4">{{ $data->sub_title }}</h1>
+            <h1 class="uk-text-uppercase text-white fw-600 uk-margin-small-top uk-margin-remove-bottom ls-4">{{ $data->title }}</h1>
             <div class="divider">
                 <span class="line"></span>
                 <span class="icon"><i class="fa-solid fa-plane"></i></span>
@@ -53,21 +53,27 @@
                                 <a href="{{ url('page/' . tripurl($row->uri)) }}"class="two-line">{{$row->trip_title}}</a>
                             </div>
                             <div class="uk-width-1-3  text-primary uk-text-right ">
-                                <i class="fa-solid fa-star text-secondary"></i> 4.0
+                                <!-- <i class="fa-solid fa-star text-secondary"></i> 4.0 -->
                             </div>
                         </div>
                         <div class="uk-travel-price uk-flex uk-flex-between">
                             <div>
+                                @if($row->starting_price)
                                 <span>
                                     <b class="text-primary f-18">${{ $row->starting_price }}</b>
                                 </span>
+                                @endif
                             </div>
                             <div class="uk-flex uk-flex-middle">
+                                @if($row->peak_name)
                                 <span uk-icon="icon: location" class="uk-margin-small-right text-secondary"></span>{{ $row->peak_name}}
+                                @endif
                             </div>
                             <div class="uk-flex uk-flex-middle">
+                                @if($row->duration)
                                 <span uk-icon="icon: calendar" class="uk-margin-small-right text-secondary"></span>
                                 {{ $row->duration }} Days
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -2,19 +2,66 @@
 @section('content')
 
 <!-- banner section start -->
-<div class="bg-light-blue uk-homepage-banner uk-position-relative" uk-scrollspy="cls: uk-animation-fade; target: h1,p,a; delay: 200;">
-   
-    <div class="uk-text-center uk-homepage-banner-text uk-width-1-1" style="padding: 35px;">
-        <h1 class="text-primary fw-600 uk-margin-remove uk-h1">Adventure Awaits <span class="text-secondary">In The Mountain</span></h1>
-        <p class="text-primary fw-600 uk-margin-small-top">Our handpicked itineraries for your next holidays</p>
-        <div>
-            <a href="list.php" class="uk-small-btn uk-small-btn-primary">
-                View Trips <span uk-icon="icon: arrow-right"></span>
-            </a>
+@if($banners)
+    <section>
+        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay: true">
+            <div class="uk-slideshow-items" uk-height-viewport>
+                <!--for video-->
+                <!-- <div style="height:100vh;">
+                    <div class="uk-position-relative " id="ytbg3" data-ytbg-fade-in="true" data-ytbg-mute-button="true" data-youtube="https://youtu.be/es4x5R-rV9s?si=wyQYZVjmGVmvsE_P" ></div>
+                    <div class="uk-overlay-primary uk-position-cover uk-img-banner-overlay"></div>
+                    <div class="uk-overlay uk-position-center uk-text-center " uk-scrollspy="cls: uk-animation-fade; target: h1,p,a; delay: 200;">
+                        <h1 class="text-white fw-600 uk-margin-remove uk-h1">Adventure Awaits In The Mountain</h1>
+                        <p class="text-white fw-600 uk-margin-small-top">Our handpicked itineraries for your next holidays</p>
+                        <div>
+                            <a href="list.php" class="uk-small-btn uk-small-btn-primary">
+                                View Trips <span uk-icon="icon: arrow-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!--for image-->
+                @foreach($banners as $row)
+                    <div>
+                        <img src="{{$row->banner ? asset('uploads/banners/' . $row->banner) : asset('themes-assets/img/mountain/mountain-3.jpeg')}}" alt="{{ $row->trip_title }}" uk-cover>
+                        <div class="uk-overlay-primary uk-position-cover uk-img-banner-overlay"></div>
+                        <div class="uk-overlay uk-position-center uk-text-center " uk-scrollspy="cls: uk-animation-fade; target: h1,p,a; delay: 200;">
+                            @if($row->sub_title)
+                                <h1 class="text-white fw-600 uk-margin-remove uk-h1">{{ $row->sub_title }}</h1>
+                            @else
+                                <h1 class="text-white fw-600 uk-margin-remove uk-h1">Adventure Awaits In The Mountain</h1>
+                            @endif
+                            <p class="text-white fw-600 uk-margin-small-top"></p>
+                            <div>
+                                <a href="{{ url('page/' . tripurl($row->uri)) }}" class="uk-small-btn uk-small-btn-primary">
+                                    View Trips <span uk-icon="icon: arrow-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slideshow-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slideshow-item="next"></a>
         </div>
+    </section>
+@else
+    <div class="bg-light-blue uk-homepage-banner uk-position-relative" uk-scrollspy="cls: uk-animation-fade; target: h1,p,a; delay: 200;">
+
+        <div class="uk-text-center uk-homepage-banner-text uk-width-1-1" style="padding: 35px;">
+            <h1 class="text-primary fw-600 uk-margin-remove uk-h1">Adventure Awaits <span class="text-secondary">In The Mountain</span></h1>
+            <p class="text-primary fw-600 uk-margin-small-top">Our handpicked itineraries for your next holidays</p>
+            <div>
+                <!-- <a href="" class="uk-small-btn uk-small-btn-primary">
+                    View Trips <span uk-icon="icon: arrow-right"></span>
+                </a> -->
+            </div>
+        </div>
+        <img src="{{ asset('themes-assets/img/banner.png') }}" loading="lazy">
     </div>
-     <img src="{{ asset('themes-assets/img/banner.png') }}" alt="" loading="lazy">
-</div>
+@endif
 <!-- banner section end -->
 
 <!-- about section start -->
@@ -85,21 +132,27 @@
                                             <a href="{{ url('page/' . tripurl($exped->uri)) }}" class="two-line">{{$exped->trip_title}}</a>
                                         </div>
                                         <div class="uk-width-1-3  text-primary uk-text-right ">
-                                            <i class="fa-solid fa-star text-secondary"></i> 4.0
+                                            <!-- <i class="fa-solid fa-star text-secondary"></i> 4.0 -->
                                         </div>
                                     </div>
                                     <div class="uk-travel-price uk-flex uk-flex-between">
                                         <div>
+                                            @if($exped->starting_price)
                                             <span>
                                                 <b class="text-primary f-18">${{ $exped->starting_price }}</b>
                                             </span>
+                                            @endif
                                         </div>
                                         <div class="uk-flex uk-flex-middle">
+                                            @if($exped->peak_name)
                                             <span uk-icon="icon: location" class="uk-margin-small-right text-secondary"></span>{{ $exped->peak_name}}
+                                            @endif
                                         </div>
                                         <div class="uk-flex uk-flex-middle">
+                                            @if($exped->duration)
                                             <span uk-icon="icon: calendar" class="uk-margin-small-right text-secondary"></span>
                                             {{ $exped->duration }} Days
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -193,21 +246,27 @@
                                     <a href="{{ url('page/' . tripurl($trekData->uri)) }}" class="two-line">{{ $trekData->trip_title }}</a>
                                 </div>
                                 <div class="uk-width-1-3  text-primary uk-text-right ">
-                                    <i class="fa-solid fa-star text-secondary"></i> 4.0
+                                    <!-- <i class="fa-solid fa-star text-secondary"></i> 4.0 -->
                                 </div>
                             </div>
                             <div class="uk-travel-price uk-flex uk-flex-between">
                                 <div>
+                                    @if($trekData->starting_price)
                                     <span>
                                         <b class="text-primary f-18">${{ $trekData->starting_price }}</b>
                                     </span>
+                                    @endif
                                 </div>
                                 <div class="uk-flex uk-flex-middle">
+                                    @if($trekData->peak_name)
                                     <span uk-icon="icon: location" class="uk-margin-small-right text-secondary"></span>{{ $trekData->peak_name}}
+                                    @endif
                                 </div>
                                 <div class="uk-flex uk-flex-middle">
+                                    @if($trekData->duration)
                                     <span uk-icon="icon: calendar" class="uk-margin-small-right text-secondary"></span>
                                     {{ $trekData->duration }} Days
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -239,7 +298,7 @@
                     <h1 class="text-primary fw-600 uk-margin-small-top">Know What Our Customers Say</h1>
                 </div>
                 <div class="uk-width-1-3@s  uk-flex uk-flex-center uk-flex-right@s uk-flex-middle">
-                    <img src="{{asset('themes-assets/img/trip.png')}}" height="150" alt="" loading="lazy" style="height:85px;">
+                    <img src="{{asset('themes-assets/img/trip.png')}}" height="150"  loading="lazy" style="height:85px;">
                 </div>
             </div>
             <div class="uk-position-relative uk-visible-toggle uk-margin-top" tabindex="-1" uk-slider>
@@ -366,7 +425,7 @@
 <section class="uk-section uk-section-small uk-padding-remove-bottom bg-light-blue" uk-scrollspy="cls: uk-animation-fade; target: img,p,a; delay: 200;">
     <div class="uk-container uk-container-small">
         <div class="border-rounded bg-primary uk-text-center uk-padding uk-blue-contact">
-            <img src="{{ asset('themes-assets/img/logo_white.png')}}" alt="" loading="lazy">
+            <img src="{{ asset('themes-assets/img/logo_white.png')}}"  loading="lazy">
             <p class="text-white">
                 {!! $contact->content !!}
             </p>

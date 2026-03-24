@@ -77,7 +77,7 @@
         <hr style="border-top: 2px dotted #e5e5e5;">
         <img src="assets/img/card.png" alt="" class="uk-margin-bottom">
         <p class="uk-margin-remove text-white ">{!! $setting->copyright_text  !!}</p>
-        <p class="uk-margin-remove text-white">Design & Developed By<a target="_blank" class="text-secondary"> Yantra Network Solution Pvt. Ltd.</a> </p>
+        <p class="uk-margin-remove text-white">Design & Developed By<a href="https://yantranetwork.com/" target="_blank" class="text-secondary"> Yantra Network Solution Pvt. Ltd.</a> </p>
     </div>
     <div class="uk-footer-background-overlay"></div>
 </section>
