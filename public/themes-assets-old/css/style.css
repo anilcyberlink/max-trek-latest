@@ -119,13 +119,6 @@
 }
 
 /********************************homepage ****************************/
-.uk-img-banner-overlay
-{
-    background: rgb(34 34 34 / 43%);
-}
-.video-background-controls {
-  display: none;
-}
 .uk-homepage-banner {
   height: 100vh;
 }

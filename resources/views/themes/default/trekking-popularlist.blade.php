@@ -34,21 +34,27 @@
                                 <a href="{{ url('page/' . tripurl($row->uri)) }}"class="two-line">{{$row->trip_title}}</a>
                             </div>
                             <div class="uk-width-1-3  text-primary uk-text-right ">
-                                <i class="fa-solid fa-star text-secondary"></i> 4.0
+                                <!-- <i class="fa-solid fa-star text-secondary"></i> 4.0 -->
                             </div>
                         </div>
                         <div class="uk-travel-price uk-flex uk-flex-between">
                             <div>
+                                @if($row->starting_price)
                                 <span>
                                     <b class="text-primary f-18">${{ $row->starting_price }}</b>
                                 </span>
+                                @endif
                             </div>
                             <div class="uk-flex uk-flex-middle">
+                                @if($row->peak_name)
                                 <span uk-icon="icon: location" class="uk-margin-small-right text-secondary"></span>{{ $row->peak_name}}
+                                @endif
                             </div>
                             <div class="uk-flex uk-flex-middle">
+                                @if($row->duration)
                                 <span uk-icon="icon: calendar" class="uk-margin-small-right text-secondary"></span>
                                 {{ $row->duration }} Days
+                                @endif
                             </div>
                         </div>
                     </div>
