@@ -370,33 +370,54 @@ class FrontpageController extends Controller
 
     public function post_inquiry(Request $request)
     {
+        // dd($request->all());
         if ($request->isMethod('post')) {
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required|email',
-                'number' => 'required',
-                // 'h-captcha-response' => 'required|HCaptcha',
-                'g-captcha-response' => 'required',
-            ]);
-            $post = new TripInquiryModel();
-            $post->title = $request->title;
-            $post->trip_id = $request->trip_id;
-            $post->name = $request->name;
-            $post->email = $request->email;
-            $post->number = $request->number;
-            $post->review = $request->review;
-            $post->group_size = $request->group_size;
-            $post->duration = $request->duration;
-            $post->country = $request->country;
-            $post->trip_start_date = $request->trip_start_date;
+            $g_recaptcha_response = $request->input('g_recaptcha_response');
+            $result = $this->getCaptcha($g_recaptcha_response);
+            if ($result->success == true) {
+                $request->validate([
+                    'trip_id'    => 'required|integer',
+                    'full_name' => 'required|string|max:100',
+                    'email'      => 'required|email|max:150',
+                    'phone'      => 'required|string|max:20',
+                    'country'    => 'nullable|string|max:100',
+                    'people'     => 'nullable|integer|min:1',
+                    'stay'       => 'nullable|integer|min:1',
+                    'comments'   => 'nullable|string',
+                    'trip_start_date' => 'nullable|date',
+                ]);
 
-            if ($post->save()) {
-                Mail::send(new \App\Mail\AdminInquiryMail($request->email));
-                $response = [
-                    'success' => true,
-                    'message' => 'Inquiry sent successfully.'
-                ];
-                return back()->with('response', $response);
+                try {
+                    $data = [
+                        'title' => $request->title ?? null,
+                        'trip_id' => $request->trip_id,
+                        'name' => $request->full_name,
+                        'email' => $request->email,
+                        'number' => $request->phone,
+                        'review' => $request->comments,
+                        'group_size' => $request->people,
+                        'duration' => $request->stay,
+                        'country' => $request->country,
+                        'trip_start_date' => $request->trip_start_date,
+                    ];
+                    TripInquiryModel::create($data);
+
+                    return back()->with('response', [
+                        'success' => true,
+                        'message' => 'Inquiry sent successfully.'
+                    ]);
+
+                } catch (\Exception $e) {
+                    return back()->with('response', [
+                        'success' => false,
+                        'message' => 'Something went wrong. Please try again.'
+                    ]);
+                }
+            } else {
+                return back()->with([
+                    'error' => true,
+                    'message' => 'You are robot.'
+                ]);
             }
         }
     }
@@ -481,30 +502,36 @@ class FrontpageController extends Controller
 
     public function contact_us(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'first_name' => 'required',
-            'email' => 'required|email',
-            'number' => 'required',
-            'country' => 'required',
-            'h-captcha-response' => 'required|HCaptcha',
-
-
-        ]);
-
-        if ($request->isMethod('post')) {
-
-            $create = Contact::create([
-                'full_name' => $request->first_name,
-                'email' => $request->email,
-                'number' => $request->number,
-                'message' => $request->message,
-                'country' => $request->country,
-                'title' => $request->title
+        $g_recaptcha_response = $request->input('g_recaptcha_response');
+        $result = $this->getCaptcha($g_recaptcha_response);
+        if ($result->success == true) {
+            $request->validate([
+                'first_name' => 'required',
+                'email' => 'required|email',
+                'number' => 'required',
+                'country' => 'required',
+                'comments' => 'nullable|string'
             ]);
-            //   return new \App\Mail\AdminContactMail($request->email);
-            // Mail::send(new \App\Mail\Contact($request->email));
-            return back()->with('message', 'Contact Form submitted successfully');
+            // dd($request->all());
+
+            if ($request->isMethod('post')) {
+
+                $create = Contact::create([
+                    'full_name' => $request->first_name,
+                    'email' => $request->email,
+                    'number' => $request->number,
+                    'message' => $request->comments,
+                    'country' => $request->country
+                ]);
+                //   return new \App\Mail\AdminContactMail($request->email);
+                // Mail::send(new \App\Mail\Contact($request->email));
+                return back()->with('message', 'Contact Form submitted successfully');
+            }
+        } else {
+            return back()->with([
+                'error' => true,
+                'message' => 'You are robot.'
+            ]);
         }
     }
 

@@ -57,33 +57,29 @@
         </div>
         <div class="uk-grid uk-grid-collapse uk-grid-match uk-margin-top uk-child-width-1-2@m">
             <div class="uk-box-shadow-medium uk-padding uk-margin-top">
-                <form class="uk-grid-small" uk-grid>
+                <form action="{{ route('contact') }}" method="post" class="uk-grid-small" uk-grid>
                     @csrf
+                    <input type="hidden" id="g_recaptcha_response" name="g_recaptcha_response"/>
                     <div class="uk-width-1-2@s">
                         <label class="uk-form-label text-primary" for="Name">Full Name:</label>
-                        <input class="uk-input border-rounded bg-text" name="full_name" type="text" aria-label="Name">
+                        <input class="uk-input border-rounded bg-text" name="first_name" type="text" aria-label="Name" required>
                     </div>
                     <div class="uk-width-1-2@s">
                         <label class="uk-form-label text-primary" for="Contact">Contact:</label>
-                        <input class="uk-input border-rounded bg-text" name="number" type="number" aria-label="Contact">
+                        <input class="uk-input border-rounded bg-text" name="number" type="number" aria-label="Contact" required>
                     </div>
                     <div class="uk-width-1-2@s">
                         <label class="uk-form-label text-primary" for="Email">Email:</label>
-                        <input class="uk-input border-rounded bg-text" name="email" type="email" aria-label="Email">
+                        <input class="uk-input border-rounded bg-text" name="email" type="email" aria-label="Email" required>
                     </div>
 
                     <div class="uk-width-1-2@s">
                         <label class="uk-form-label text-primary" for="Email">Country:</label>
-                        <select name="country" class="uk-select border-rounded bg-text" id="form-stacked-select">
-                            <option value="" disabled selected>Select Country</option>
-                            <option value="Afghanistan">Afghanistan</option>
-                            <option value="Albania">Albania</option>
-                            <option value="Algeria">Algeria</option>
-
-                            <option value="Zimbabwe">Zimbabwe</option>
+                        <select name="country" class="uk-select border-rounded bg-text" id="form-stacked-select" required>
+                            @include('themes/default/common/country')
                         </select>
                     </div>
-                    <div class="uk-width-1-1@s">
+                    <!-- <div class="uk-width-1-1@s">
                         <label class="uk-form-label text-primary" for="adventure">Trip Interested In:</label>
                         <select name="trip" class="uk-select border-rounded bg-text" id="form-stacked-select">
                             <option selected>--Select Trip--</option>
@@ -93,9 +89,9 @@
                             <option value="126">MERA PEAK EXPEDITION (6,476M)</option>
 
                         </select>
-                    </div>
+                    </div> -->
                     <div class="uk-width-1-1">
-                        <textarea class="uk-textarea border-rounded bg-text" name="comments" rows="5" placeholder="Message" aria-label="Message"></textarea>
+                        <textarea class="uk-textarea border-rounded bg-text" name="comments" rows="5" placeholder="Message" aria-label="Message" required></textarea>
                     </div>
                     <div class="uk-width-1-1 uk-text-center uk-margin-top">
                         <button type="submit" class="uk-small-btn uk-small-btn-primary" style="border:none;">SUBMIT<span uk-icon="icon: arrow-right"></span></button>
@@ -111,4 +107,21 @@
 </section>
 <!-- contact section end -->
 
+<script src="https://www.google.com/recaptcha/api.js?render={{env('SITE_KEY')}}"></script>
+<script>
+    grecaptcha.ready(function () {
+        function executeRecaptcha() {
+            grecaptcha.execute('<?php echo env("SITE_KEY"); ?>', {action: 'homepage'}).then(function (token) {
+                document.getElementById('g_recaptcha_response').value = token;
+            });
+        }
+
+        // Initial execution of reCAPTCHA
+        executeRecaptcha();
+
+        // Refresh the reCAPTCHA token every 100 seconds (less than 2 minutes)
+        setInterval(executeRecaptcha, 900000);
+    });
+
+</script>
 @stop

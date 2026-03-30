@@ -743,79 +743,70 @@
         <div class="bg-primary uk-padding-small uk-custom-padding">
             <div class="uk-padding-small">
                 <h4 class="text-white fw-600 uk-text-uppercase uk-margin-remove ">Have Question?</h4>
-                <p class="uk-text-uppercase text-white uk-margin-remove">Mt. Annapurna Trekking</p>
+                <p class="uk-text-uppercase text-white uk-margin-remove">{{ $data->trip_title }}</p>
             </div>
         </div>
-        <div class="uk-padding">
-
-            <fieldset class="uk-fieldset">
-                <!--  -->
-                <div class="uk-child-width-1-2@m uk-text-left uk-grid-small" uk-grid>
-                    <div>
-                        <label for="first_name" class="text-primary">First Name <span
-                                class="uk-text-danger">*</span></label>
-                        <input class="uk-input bg-text border-rounded" type="text" name="first_name"
-                            placeholder="First Name *" required>
+        <form action="{{ route('post-inquiry') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="uk-padding">
+                <fieldset class="uk-fieldset">
+                    <!--  -->
+                    <input type="hidden" name="trip_id" value="{{ $data->id }}">
+                    <input type="hidden" id="g_recaptcha_response" name="g_recaptcha_response"/>
+                    <div class="uk-child-width-1-2@m uk-text-left uk-grid-small" uk-grid>
+                        <div>
+                            <label for="full_name" class="text-primary">Full Name <span
+                                    class="uk-text-danger">*</span></label>
+                            <input class="uk-input bg-text border-rounded" type="text" name="full_name"
+                                placeholder="Full Name *" required>
+                        </div>
+                        <div>
+                            <label for="country" class="text-primary">Country Name <span
+                                    class="uk-text-danger">*</span></label>
+                            <select class="uk-select bg-text border-rounded" name="country" required>
+                                @include('themes/default/common/country')
+                            </select>
+                        </div>
+                        <div>
+                            <label for="email" class="text-primary">Email <span class="uk-text-danger">*</span></label>
+                            <input class="uk-input bg-text border-rounded" type="text" name="email" placeholder="Email *"
+                                required>
+                        </div>
+                        <div>
+                            <label for="phone" class="text-primary">Phone <span class="uk-text-danger">*</span></label>
+                            <input class="uk-input bg-text border-rounded" type="text" name="phone"
+                                placeholder="Phone(Landline)">
+                        </div>
+                        <div>
+                            <label for="people" class="text-primary">No of People</label>
+                            <input class="uk-input bg-text border-rounded" type="number" name="people"
+                                placeholder="No of People">
+                        </div>
+                        <div>
+                            <label for="phone" class="text-primary">Duration of Stay</label>
+                            <input class="uk-input bg-text border-rounded" type="text" name="stay"
+                                placeholder="Duration of Stay">
+                        </div>
                     </div>
-                    <div>
-                        <label for="last_name" class="text-primary">Last Name <span
-                                class="uk-text-danger">*</span></label>
-                        <input class="uk-input bg-text border-rounded" type="text" name="last_name"
-                            placeholder="Last Name *" required>
+                    <!--  -->
+                    <div class="uk-child-width-1-1@s uk-child-width-1-1@m uk-text-left uk-margin-small-top uk-margin-bottom "
+                        uk-grid>
+                        <div>
+                            <label for="comments" class="text-primary">Please tell us more about yourself to help you
+                                better.</label>
+                            <textarea name="comments" class="uk-textarea bg-text border-rounded" rows="4"
+                                placeholder="Write your message here"></textarea>
+                        </div>
                     </div>
-                    <div>
-                        <label for="country" class="text-primary">Country Name <span
-                                class="uk-text-danger">*</span></label>
-                        <select class="uk-select bg-text border-rounded" name="country" required>
-                            <!--<option value="">Select Your Country *</option>-->
-                            <option value="">Select Country</option>
-                            <option value="Afghanistan">Afghanistan</option>
-                            <option value="Albania">Albania</option>
-                            <option value="Algeria">Algeria</option>
-                            <option value="American Samoa">American Samoa</option>
-                        </select>
+                    <div class="uk-child-width-1-1@s uk-child-width-1-1@m uk-text-left uk-margin-remove-top  " uk-grid>
+                        <div>
+                            <button type="submit" class="uk-small-btn uk-small-btn-primary" style="border:none;">SUBMIT<span
+                                    uk-icon="icon: arrow-right"></span></button>
+                        </div>
                     </div>
-                    <div>
-                        <label for="email" class="text-primary">Email <span class="uk-text-danger">*</span></label>
-                        <input class="uk-input bg-text border-rounded" type="text" name="email" placeholder="Email *"
-                            required>
-                    </div>
-                    <div>
-                        <label for="phone" class="text-primary">Phone <span class="uk-text-danger">*</span></label>
-                        <input class="uk-input bg-text border-rounded" type="text" name="phone"
-                            placeholder="Phone(Landline)">
-                    </div>
-                    <div>
-                        <label for="people" class="text-primary">No of People</label>
-                        <input class="uk-input bg-text border-rounded" type="number" name="people"
-                            placeholder="No of People">
-                    </div>
-                    <div>
-                        <label for="phone" class="text-primary">Duration of Stay</label>
-                        <input class="uk-input bg-text border-rounded" type="text" name="stay"
-                            placeholder="Duration of Stay">
-                    </div>
-                </div>
-                <!--  -->
-                <div class="uk-child-width-1-1@s uk-child-width-1-1@m uk-text-left uk-margin-small-top uk-margin-bottom "
-                    uk-grid>
-                    <div>
-                        <label for="comments" class="text-primary">Please tell us more about yourself to help you
-                            better.</label>
-                        <textarea name="comments" class="uk-textarea bg-text border-rounded" rows="4"
-                            placeholder="Write your message here"></textarea>
-                    </div>
-                </div>
-                <div class="uk-child-width-1-1@s uk-child-width-1-1@m uk-text-left uk-margin-remove-top  " uk-grid>
-                    <div>
-                        <button type="submit" class="uk-small-btn uk-small-btn-primary" style="border:none;">SUBMIT<span
-                                uk-icon="icon: arrow-right"></span></button>
-                    </div>
-                </div>
-
-            </fieldset>
-        </div>
-
+                </fieldset>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -895,6 +886,23 @@
         </form>
     </div>
 </div>
+<script src="https://www.google.com/recaptcha/api.js?render={{env('SITE_KEY')}}"></script>
+<script>
+    grecaptcha.ready(function () {
+        function executeRecaptcha() {
+            grecaptcha.execute('<?php echo env("SITE_KEY"); ?>', {action: 'homepage'}).then(function (token) {
+                document.getElementById('g_recaptcha_response').value = token;
+            });
+        }
+
+        // Initial execution of reCAPTCHA
+        executeRecaptcha();
+
+        // Refresh the reCAPTCHA token every 100 seconds (less than 2 minutes)
+        setInterval(executeRecaptcha, 900000);
+    });
+
+</script>
 
 <script>
     // Custom smooth scrolling with offset
