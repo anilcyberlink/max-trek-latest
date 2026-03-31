@@ -168,9 +168,9 @@
                                 <li>
                                     <a href="{{ url('admin/pagecategory') }}">
                                     <span class="fa fa-arrows"></span>
-                                    Page Categories                
-                                    </a>                
-                                </li> 
+                                    Page Categories
+                                    </a>
+                                </li>
                                 @if($pagetype)
                                     @foreach($pagetype as $row)
                                         <li class="{{ (Request::segment(2) == $row->uri) ? 'active' : '' }}">
@@ -305,14 +305,13 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="nav sub-nav">
-                                {{--
                                 <li class="{{ (Request::segment(1) == 'contact-us')?'active':'' }}">
 
                                     <a href="{{ url('contact-us') }}">
                                         <span class="fa fa-dot-circle-o "></span>
-                                        <span class="sidebar-title">Contact Us</span>
+                                        <span class="sidebar-title">Contact Inquiry</span>
                                     </a>
-                                </li> --}}
+                                </li>
 
                                 <li class="{{ (Request::segment(1) == 'admin-trip-booking') ? 'active' : '' }}">
                                     <a href="{{ route('trip-booking') }}">
