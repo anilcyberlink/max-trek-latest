@@ -13,10 +13,6 @@ use App\Model\TripBooking;
 use Illuminate\Support\Str;
 use App\Model\VerifyContact;
 use Illuminate\Http\Request;
-use App\Mail\BookingComplete;
-use App\Mail\SendMailContact;
-use App\Mail\AdminBookingMail;
-use App\Mail\AdminInquiryMail;
 use App\Models\Team\TeamModel;
 use App\Models\Pages\PageModel;
 use App\Models\Posts\PostModel;
@@ -42,6 +38,8 @@ use App\Models\Posts\AssociatedPostModel;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Destinations\DestinationModel;
 use Session;
+use App\Mail\AdminInquiryMail;
+use App\Mail\AdminContactMail;
 
 
 class FrontpageController extends Controller
@@ -374,22 +372,23 @@ class FrontpageController extends Controller
         if ($request->isMethod('post')) {
             $g_recaptcha_response = $request->input('g_recaptcha_response');
             $result = $this->getCaptcha($g_recaptcha_response);
-            if ($result->success == true) {
-                $request->validate([
-                    'trip_id'    => 'required|integer',
-                    'full_name' => 'required|string|max:100',
-                    'email'      => 'required|email|max:150',
-                    'phone'      => 'required|string|max:20',
-                    'country'    => 'nullable|string|max:100',
-                    'people'     => 'nullable|integer|min:1',
-                    'stay'       => 'nullable|integer|min:1',
-                    'comments'   => 'nullable|string',
-                    'trip_start_date' => 'nullable|date',
-                ]);
-
+            if ($result->success == true)
+            {
                 try {
+                    $request->validate([
+                        'trip_id'    => 'required|integer',
+                        'full_name' => 'required|string|max:100',
+                        'email'      => 'required|email|max:150',
+                        'phone'      => 'required|string|max:20',
+                        'country'    => 'nullable|string|max:100',
+                        'people'     => 'nullable|integer|min:1',
+                        'comments'   => 'nullable|string',
+                        'trip_start_date' => 'nullable|date',
+                    ]);
+                    $trip = TripModel::where('id', $request->trip_id)->first();
+
                     $data = [
-                        'title' => $request->title ?? null,
+                        'title' => $trip->trip_title ?? null,
                         'trip_id' => $request->trip_id,
                         'name' => $request->full_name,
                         'email' => $request->email,
@@ -401,6 +400,10 @@ class FrontpageController extends Controller
                         'trip_start_date' => $request->trip_start_date,
                     ];
                     TripInquiryModel::create($data);
+                    // dd($request->all(),$trip);
+
+                    // Mail::to('info@maxtrek.com')->send(new AdminInquiryMail($data));
+                    return new AdminInquiryMail($data);
 
                     return back()->with('response', [
                         'success' => true,
@@ -408,8 +411,9 @@ class FrontpageController extends Controller
                     ]);
 
                 } catch (\Exception $e) {
+                    // dd($e->getMessage());
                     return back()->with('response', [
-                        'success' => false,
+                        'error' => true,
                         'message' => 'Something went wrong. Please try again.'
                     ]);
                 }
@@ -505,27 +509,35 @@ class FrontpageController extends Controller
         $g_recaptcha_response = $request->input('g_recaptcha_response');
         $result = $this->getCaptcha($g_recaptcha_response);
         if ($result->success == true) {
-            $request->validate([
-                'first_name' => 'required',
-                'email' => 'required|email',
-                'number' => 'required',
-                'country' => 'required',
-                'comments' => 'nullable|string'
-            ]);
-            // dd($request->all());
-
-            if ($request->isMethod('post')) {
-
-                $create = Contact::create([
-                    'full_name' => $request->first_name,
-                    'email' => $request->email,
-                    'number' => $request->number,
-                    'message' => $request->comments,
-                    'country' => $request->country
+            try{
+                $request->validate([
+                    'first_name' => 'required',
+                    'email' => 'required|email',
+                    'number' => 'required',
+                    'country' => 'required',
+                    'comments' => 'nullable|string'
                 ]);
-                //   return new \App\Mail\AdminContactMail($request->email);
-                // Mail::send(new \App\Mail\Contact($request->email));
-                return back()->with('message', 'Contact Form submitted successfully');
+                // dd($request->all());
+
+                if ($request->isMethod('post')) {
+                    $data = [
+                        'full_name' => $request->first_name,
+                        'email' => $request->email,
+                        'number' => $request->number,
+                        'country' => $request->country,
+                        'comments' => $request->comments,
+                    ];
+                    Contact::create($data);
+                    return new AdminContactMail($data);
+                    // Mail::to('info@maxtrek.com')->send(new AdminContactMail($data));
+                    return back()->with('message', 'Contact Form submitted successfully');
+                }
+            } catch (\Exception $e) {
+                // dd($e->getMessage());
+                return back()->with('response', [
+                    'error' => true,
+                    'message' => 'Something went wrong. Please try again.'
+                ]);
             }
         } else {
             return back()->with([
