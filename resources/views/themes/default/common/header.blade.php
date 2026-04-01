@@ -13,13 +13,15 @@
     <script src="https://kit.fontawesome.com/7254a5967d.js" crossorigin="anonymous"></script>
 
     <!-- Include Toastr CSS -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-   <!-- Include Toastr JavaScript -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- Include Toastr JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 
 <body>
-   <div uk-sticky="start: 300; animation: uk-animation-slide-top; cls-active:uk-navbar-sticky; sel-target:.uk-navbar-container; class:uk-sticky;">
+    @include('themes.default.common.response')
+    <div uk-sticky="start: 300; animation: uk-animation-slide-top; cls-active:uk-navbar-sticky; sel-target:.uk-navbar-container; class:uk-sticky;">
         <!-- desktop view start -->
         <nav class="uk-navbar-container uk-visible@l" style="position: absolute; width:100%; z-index: 1000;">
             <div class=" uk-container uk-navbar-lenght uk-box-shadow-medium border-rounded" style="background:#f8f8f8; margin-top: 9px;">

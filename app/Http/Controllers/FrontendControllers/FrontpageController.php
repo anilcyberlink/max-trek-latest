@@ -40,6 +40,8 @@ use App\Models\Destinations\DestinationModel;
 use Session;
 use App\Mail\AdminInquiryMail;
 use App\Mail\AdminContactMail;
+use App\Mail\AdminBookingMail;
+use App\Mail\UserBookingMail;
 
 
 class FrontpageController extends Controller
@@ -299,73 +301,82 @@ class FrontpageController extends Controller
         return view('themes.default.team-single', compact('data'));
     }
 
-    //  <! ---Booking a Trip Controller--- !>
     public function post_tripbooking(Request $request)
     {
         $g_recaptcha_response = $request->input('g-captcha-response');
         $result = $this->getCaptcha($g_recaptcha_response);
 
         if (!$result->success) {
-            return back()->with('error', 'You are a robot');
+            return back()->with([
+                'error' => true,
+                'message' => 'You are robot.'
+            ]);
         }
 
-        if ($request->isMethod('post')) {
-            // dd($request->all(),'test 22');
+        try {
             $request->validate([
-                'trip_id' => 'required|integer|exists:cl_trip_details,id',
-                'start_date' => 'required|date',
-                'end_date' => 'required|date',
-                'num_people' => 'required|string',
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'dob' => 'required|date',
-                'country' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
-                'phone' => 'required|string|max:25',
-                'comments' => 'nullable|string|max:2000',
+                'trip_id'        => 'required|integer|exists:cl_trip_details,id',
+                'start_date'     => 'required|date',
+                'end_date'       => 'required|date',
+                'num_people'     => 'required|string',
+                'first_name'     => 'required|string|max:255',
+                'last_name'      => 'required|string|max:255',
+                'dob'            => 'required|date',
+                'country'        => 'required|string|max:255',
+                'email'          => 'required|email|max:255',
+                'phone'          => 'required|string|max:25',
+                'comments'       => 'nullable|string|max:2000',
                 'terms_conditions' => 'accepted',
             ]);
 
-            try {
-                $create = BookingModel::create([
-                    'trip_id' => $request->trip_id,
-                    'schedule_id' => $request->schedule_id ?? null,
-                    'title' => $request->title ?? null,
-                    'full_name' => $request->first_name . ' ' . $request->last_name,
-                    'country' => $request->country,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'departure_date' => $request->departure_date ?? null,
-                    'start_date' => $request->start_date,
-                    'end_date' => $request->end_date,
-                    'comments' => $request->comments,
-                    'terms_conditions' => $request->terms_conditions,
-                    'status' => $request->status,
-                    'num_people' => $request->num_people,
-                ]);
-                dd($request->all(), 'test 22');
+            $trip = TripModel::where('id', $request->trip_id)->first();
+            $data = [
+                'trip_id'        => $request->trip_id,
+                'schedule_id'   => $request->schedule_id ?? null,
+                'title'         => $trip->trip_title ?? null,
+                'full_name'     => $request->first_name . ' ' . $request->last_name,
+                'country'       => $request->country,
+                'email'         => $request->email,
+                'phone'         => $request->phone,
+                'departure_date'=> $request->start_date,
+                'start_date'    => $request->start_date,
+                'end_date'      => $request->end_date,
+                'comments'      => $request->comments,
+                'terms_conditions' => $request->has('terms_conditions') ? 1 : 0,
+                'status'        => 0,
+                'num_people'    => $request->num_people,
+            ];
 
-                if ($create) {
-                    // Mail::send(new \App\Mail\AdminBookingMail($request->email));
-                    // return redirect()->route('page.bookingsuccess')->with('success', 'Booking completed successfully');
-                    $response = [
-                        'success' => true,
-                        'message' => 'Booking completed successfully.'
-                    ];
-                    return redirect()->route('page.bookingsuccess')->with('response', $response);
-                } else {
-                    return back()->with('error', 'Failed to save booking. Please try again.');
+            $booking = BookingModel::create($data);
+
+            if ($booking) {
+                try {
+                    // return new UserBookingMail($data);
+                    // return new AdminBookingMail($data);
+                    // Mail::to('info@maxtrek.com')->send(new AdminBookingMail($data));
+                    // Mail::to($request->email)->send(new UserBookingMail($data));
+                } catch (\Exception $e) {
+                    // silent — booking already saved
                 }
 
-            } catch (\Exception $e) {
-                // Log the error for debugging
-                \Log::error('Booking save error: ' . $e->getMessage());
-
-                return back()->with('error', 'An error occurred while saving your booking: ' . $e->getMessage());
+                return redirect()->route('page.bookingsuccess')->with([
+                    'success' => true,
+                    'message' => 'Booking completed successfully.'
+                ]);
             }
+
+            return back()->with([
+                'error' => true,
+                'message' => 'Something went wrong. Please try again.'
+            ]);
+
+        } catch (\Exception $e) {
+            return back()->with([
+                'error' => true,
+                'message' => 'Something went wrong. Please try again.'
+            ]);
         }
     }
-
     public function post_inquiry(Request $request)
     {
         // dd($request->all());

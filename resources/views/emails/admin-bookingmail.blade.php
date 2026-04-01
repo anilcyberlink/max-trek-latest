@@ -1,68 +1,90 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{{$site_name}}</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width:100%;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-            padding:8px;
-        }
-    </style>
+    <title>Max Trekking</title>
 </head>
-<body style="font-family: sans-serif">
-<div style="margin:0 auto; max-width:700px; width:100%;">
-    <blockquote>
-        <div style="background:#FFF; padding:8px 0px; margin-bottom:5px;">
-            @if($logo)
-                <img src="{{ asset('uploads/medium/'.$logo) }}" style="width: 30%"/>
-            @else
-                <h1>{{$site_name}}</h1>
-            @endif
-        </div>
-    </blockquote>
-    <h3>Booking Details:</h3>
-    <table>
 
+<body style="margin:0; padding:0; background:#f4f6f8; font-family: Arial, sans-serif;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f8; padding:20px 0;">
         <tr>
-            <td bgcolor="#ddd"  ><strong>Full Name</strong></td>  
-            <td bgcolor="#ddd" >{{ $name }}</td>
+            <td align="center">
+
+                <!-- Main Container -->
+                <table width="650" cellpadding="0" cellspacing="0"
+                    style="background:#ffffff; border-radius:8px; overflow:hidden;">
+
+                    <!-- Header with Logo -->
+                    <tr>
+                        <td style="background: linear-gradient(90deg, #5dade2, #3498db); padding:20px; text-align:center;">
+                            <img src="{{ asset('themes-assets/img/logo.jpeg') }}" width="120"
+                                style="display:block; margin:auto;">
+                        </td>
+                    </tr>
+
+                    <!-- Title -->
+                    <tr>
+                        <td style="padding:20px; text-align:center;">
+                            <h2 style="margin:0; color:#333;">New Trip Booking</h2>
+                        </td>
+                    </tr>
+
+                    <!-- Inquiry Table -->
+                    <tr>
+                        <td style="padding:0 20px 20px 20px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+
+                                <tr>
+                                    <td style="padding:12px; background:#f1f3f5; font-weight:bold; width:35%;">Full Name</td>
+                                    <td style="padding:12px;">{{ $name }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:12px; background:#f1f3f5; font-weight:bold; width:35%;">Trip Title</td>
+                                    <td style="padding:12px;">{{ $trip }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:12px; background:#f1f3f5; font-weight:bold;">Email</td>
+                                    <td style="padding:12px;">{{ $email }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:12px; background:#f1f3f5; font-weight:bold;">Phone</td>
+                                    <td style="padding:12px;">{{ $contact }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:12px; background:#f1f3f5; font-weight:bold;">Country</td>
+                                    <td style="padding:12px;">{{ $country ?? '-' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:12px; background:#f1f3f5; font-weight:bold;">Departure Date</td>
+                                    <td style="padding:12px;">{{ $start_date ?? '-' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:12px; background:#f1f3f5; font-weight:bold;">Number of People</td>
+                                    <td style="padding:12px;">{{ $num_ppl ?? '-' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:12px; background:#f1f3f5; font-weight:bold;">Message</td>
+                                    <td style="padding:12px;">{{ $message_text ?? '-' }}</td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
         </tr>
-        <tr>
-            <td><strong>Email</strong></td>
-            <td>{{ $email }}</td>
-        </tr>
-        @if($contact)
-            <tr>
-                <td><strong>Phone </strong></td>
-                <td>{{ $contact }}</td>
-            </tr>
-        @endif
-        <tr>
-            <td><strong>Country</strong></td>
-            <td>{{ $country }}</td>
-        </tr>
-        <tr>
-            <td><strong>Trip Start Date</strong></td>
-            <td>{{ $start_date }}</td>
-        </tr>
-        <tr>
-            <td><strong>Total Number Of Peoples</strong></td>
-            <td>{{ $num_ppl }}</td>
-        </tr>
-        @if($messages)
-            <tr>
-                <td><strong>Message</strong></td>
-                <td>{!! $messages  !!}</td>
-            </tr>
-        @endif
     </table>
 
-
-</div>
 </body>
+
 </html>
